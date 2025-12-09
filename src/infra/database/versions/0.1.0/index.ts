@@ -6,6 +6,7 @@ import { createClientesConcordiaTables20250101004 } from './TASK-0004__202501010
 import { createTenantTablesFunction20250101005 } from './TASK-0005__20250101005-create-tenant-tables-function'
 import { addClientesItensRecompensaTable20250101006 } from './TASK-0006__20250101006-add-clientes-itens-recompensa-table'
 import { updateConfiguracoesGlobaisFields20250101007 } from './TASK-0007__20250101007-update-configuracoes-globais-fields'
+import { createComunicacoesTables20250101008 } from './TASK-0008__20250101008-create-comunicacoes-tables'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -15,5 +16,6 @@ export const migrations: Migration[] = [
   createTenantTablesFunction20250101005,
   addClientesItensRecompensaTable20250101006,
   updateConfiguracoesGlobaisFields20250101007,
+  createComunicacoesTables20250101008,
 ]
 
