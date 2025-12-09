@@ -7,6 +7,7 @@ import { createTenantTablesFunction20250101005 } from './TASK-0005__20250101005-
 import { addClientesItensRecompensaTable20250101006 } from './TASK-0006__20250101006-add-clientes-itens-recompensa-table'
 import { updateConfiguracoesGlobaisFields20250101007 } from './TASK-0007__20250101007-update-configuracoes-globais-fields'
 import { createComunicacoesTables20250101008 } from './TASK-0008__20250101008-create-comunicacoes-tables'
+import { addDestinatariosCampanhasDisparo20250101009 } from './TASK-0009__20250101009-add-destinatarios-campanhas-disparo'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -17,5 +18,6 @@ export const migrations: Migration[] = [
   addClientesItensRecompensaTable20250101006,
   updateConfiguracoesGlobaisFields20250101007,
   createComunicacoesTables20250101008,
+  addDestinatariosCampanhasDisparo20250101009,
 ]
 
