@@ -9,6 +9,7 @@ import { updateConfiguracoesGlobaisFields20250101007 } from './TASK-0007__202501
 import { createComunicacoesTables20250101008 } from './TASK-0008__20250101008-create-comunicacoes-tables'
 import { addDestinatariosCampanhasDisparo20250101009 } from './TASK-0009__20250101009-add-destinatarios-campanhas-disparo'
 import { addClientePodeExcluirCampanhasDisparo20250101010 } from './TASK-0010__20250101010-add-cliente-pode-excluir-campanhas-disparo'
+import { addResgateNaoRetirarLojaCampanha20250101011 } from './TASK-0011__20250101011-add-resgate-nao-retirar-loja-campanha'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -21,5 +22,6 @@ export const migrations: Migration[] = [
   createComunicacoesTables20250101008,
   addDestinatariosCampanhasDisparo20250101009,
   addClientePodeExcluirCampanhasDisparo20250101010,
+  addResgateNaoRetirarLojaCampanha20250101011,
 ]
 
