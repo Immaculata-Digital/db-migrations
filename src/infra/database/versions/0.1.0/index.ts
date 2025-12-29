@@ -10,6 +10,7 @@ import { createComunicacoesTables20250101008 } from './TASK-0008__20250101008-cr
 import { addDestinatariosCampanhasDisparo20250101009 } from './TASK-0009__20250101009-add-destinatarios-campanhas-disparo'
 import { addClientePodeExcluirCampanhasDisparo20250101010 } from './TASK-0010__20250101010-add-cliente-pode-excluir-campanhas-disparo'
 import { addResgateNaoRetirarLojaCampanha20250101011 } from './TASK-0011__20250101011-add-resgate-nao-retirar-loja-campanha'
+import { addDefaultSmtpSender20250101012 } from './TASK-0012__20250101012-add-default-smtp-sender'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -23,5 +24,6 @@ export const migrations: Migration[] = [
   addDestinatariosCampanhasDisparo20250101009,
   addClientePodeExcluirCampanhasDisparo20250101010,
   addResgateNaoRetirarLojaCampanha20250101011,
+  addDefaultSmtpSender20250101012,
 ]
 
