@@ -11,6 +11,8 @@ import { addDestinatariosCampanhasDisparo20250101009 } from './TASK-0009__202501
 import { addClientePodeExcluirCampanhasDisparo20250101010 } from './TASK-0010__20250101010-add-cliente-pode-excluir-campanhas-disparo'
 import { addResgateNaoRetirarLojaCampanha20250101011 } from './TASK-0011__20250101011-add-resgate-nao-retirar-loja-campanha'
 import { addDefaultSmtpSender20250101012 } from './TASK-0012__20250101012-add-default-smtp-sender'
+import { refactorUsersToSchemas20250101013 } from './TASK-0013__20250101013-refactor-users-to-schemas'
+import { moveAccessGroupMembershipsToSchemas20250101014 } from './TASK-0014__20250101014-move-access-group-memberships-to-schemas'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -25,5 +27,7 @@ export const migrations: Migration[] = [
   addClientePodeExcluirCampanhasDisparo20250101010,
   addResgateNaoRetirarLojaCampanha20250101011,
   addDefaultSmtpSender20250101012,
+  refactorUsersToSchemas20250101013,
+  moveAccessGroupMembershipsToSchemas20250101014,
 ]
 
