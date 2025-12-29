@@ -14,6 +14,7 @@ import { addDefaultSmtpSender20250101012 } from './TASK-0012__20250101012-add-de
 import { refactorUsersToSchemas20250101013 } from './TASK-0013__20250101013-refactor-users-to-schemas'
 import { moveAccessGroupMembershipsToSchemas20250101014 } from './TASK-0014__20250101014-move-access-group-memberships-to-schemas'
 import { updateResetSenhaTemplateHtml20250101015 } from './TASK-0015__20250101015-update-reset-senha-template-html'
+import { updateCampanhasPadraoRemetenteId20250101016 } from './TASK-0016__20250101016-update-campanhas-padrao-remetente-id'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -31,5 +32,6 @@ export const migrations: Migration[] = [
   refactorUsersToSchemas20250101013,
   moveAccessGroupMembershipsToSchemas20250101014,
   updateResetSenhaTemplateHtml20250101015,
+  updateCampanhasPadraoRemetenteId20250101016,
 ]
 
