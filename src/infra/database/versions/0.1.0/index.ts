@@ -15,6 +15,7 @@ import { refactorUsersToSchemas20250101013 } from './TASK-0013__20250101013-refa
 import { moveAccessGroupMembershipsToSchemas20250101014 } from './TASK-0014__20250101014-move-access-group-memberships-to-schemas'
 import { updateResetSenhaTemplateHtml20250101015 } from './TASK-0015__20250101015-update-reset-senha-template-html'
 import { updateCampanhasPadraoRemetenteId20250101016 } from './TASK-0016__20250101016-update-campanhas-padrao-remetente-id'
+import { addUserLojasGestoras20250101017 } from './TASK-0017__20250101017-add-user-lojas-gestoras'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -33,5 +34,6 @@ export const migrations: Migration[] = [
   moveAccessGroupMembershipsToSchemas20250101014,
   updateResetSenhaTemplateHtml20250101015,
   updateCampanhasPadraoRemetenteId20250101016,
+  addUserLojasGestoras20250101017,
 ]
 
