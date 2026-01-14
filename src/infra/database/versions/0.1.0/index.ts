@@ -17,6 +17,7 @@ import { updateResetSenhaTemplateHtml20250101015 } from './TASK-0015__2025010101
 import { updateCampanhasPadraoRemetenteId20250101016 } from './TASK-0016__20250101016-update-campanhas-padrao-remetente-id'
 import { addUserLojasGestoras20250101017 } from './TASK-0017__20250101017-add-user-lojas-gestoras'
 import { updateCreateTenantTablesAddUserLojasGestoras20250101018 } from './TASK-0018__20250101018-update-create-tenant-tables-add-user-lojas-gestoras'
+import { changeUsuCadastroAlteraToUuid20250101019 } from './TASK-0019__20250101019-change-usu-cadastro-altera-to-uuid'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -37,5 +38,6 @@ export const migrations: Migration[] = [
   updateCampanhasPadraoRemetenteId20250101016,
   addUserLojasGestoras20250101017,
   updateCreateTenantTablesAddUserLojasGestoras20250101018,
+  changeUsuCadastroAlteraToUuid20250101019,
 ]
 
