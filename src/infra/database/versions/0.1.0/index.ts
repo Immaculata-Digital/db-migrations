@@ -19,6 +19,7 @@ import { addUserLojasGestoras20250101017 } from './TASK-0017__20250101017-add-us
 import { updateCreateTenantTablesAddUserLojasGestoras20250101018 } from './TASK-0018__20250101018-update-create-tenant-tables-add-user-lojas-gestoras'
 import { changeUsuCadastroAlteraToUuid20250101019 } from './TASK-0019__20250101019-change-usu-cadastro-altera-to-uuid'
 import { changeClientesIdUsuarioToUuid20250101020 } from './TASK-0020__20250101020-change-clientes-id-usuario-to-uuid'
+import { addDataNascimentoClientes20250101021 } from './TASK-0021__20250101021-add-data-nascimento-clientes'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -41,5 +42,6 @@ export const migrations: Migration[] = [
   updateCreateTenantTablesAddUserLojasGestoras20250101018,
   changeUsuCadastroAlteraToUuid20250101019,
   changeClientesIdUsuarioToUuid20250101020,
+  addDataNascimentoClientes20250101021,
 ]
 
