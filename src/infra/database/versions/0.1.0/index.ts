@@ -20,6 +20,7 @@ import { updateCreateTenantTablesAddUserLojasGestoras20250101018 } from './TASK-
 import { changeUsuCadastroAlteraToUuid20250101019 } from './TASK-0019__20250101019-change-usu-cadastro-altera-to-uuid'
 import { changeClientesIdUsuarioToUuid20250101020 } from './TASK-0020__20250101020-change-clientes-id-usuario-to-uuid'
 import { addDataNascimentoClientes20250101021 } from './TASK-0021__20250101021-add-data-nascimento-clientes'
+import { updateResgateNaoRetirarLojaHtmlSimples20250101022 } from './TASK-0022__20250101022-update-resgate-nao-retirar-loja-html-simples'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -43,5 +44,6 @@ export const migrations: Migration[] = [
   changeUsuCadastroAlteraToUuid20250101019,
   changeClientesIdUsuarioToUuid20250101020,
   addDataNascimentoClientes20250101021,
+  updateResgateNaoRetirarLojaHtmlSimples20250101022,
 ]
 
