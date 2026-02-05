@@ -22,6 +22,7 @@ import { changeClientesIdUsuarioToUuid20250101020 } from './TASK-0020__202501010
 import { addDataNascimentoClientes20250101021 } from './TASK-0021__20250101021-add-data-nascimento-clientes'
 import { updateResgateNaoRetirarLojaHtmlSimples20250101022 } from './TASK-0022__20250101022-update-resgate-nao-retirar-loja-html-simples'
 import { addArquivoPoliticaTermos20250101023 } from './TASK-0023__20250101023-add-arquivo-politica-termos'
+import { addNomeLojaPublico20260205001 } from './TASK-0024__20260205001-add-nome-loja-publico'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -47,5 +48,6 @@ export const migrations: Migration[] = [
   addDataNascimentoClientes20250101021,
   updateResgateNaoRetirarLojaHtmlSimples20250101022,
   addArquivoPoliticaTermos20250101023,
+  addNomeLojaPublico20260205001,
 ]
 
