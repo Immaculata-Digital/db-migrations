@@ -21,6 +21,7 @@ import { changeUsuCadastroAlteraToUuid20250101019 } from './TASK-0019__202501010
 import { changeClientesIdUsuarioToUuid20250101020 } from './TASK-0020__20250101020-change-clientes-id-usuario-to-uuid'
 import { addDataNascimentoClientes20250101021 } from './TASK-0021__20250101021-add-data-nascimento-clientes'
 import { updateResgateNaoRetirarLojaHtmlSimples20250101022 } from './TASK-0022__20250101022-update-resgate-nao-retirar-loja-html-simples'
+import { addArquivoPoliticaTermos20250101023 } from './TASK-0023__20250101023-add-arquivo-politica-termos'
 
 export const migrations: Migration[] = [
   createUsersTable20250101001,
@@ -45,5 +46,6 @@ export const migrations: Migration[] = [
   changeClientesIdUsuarioToUuid20250101020,
   addDataNascimentoClientes20250101021,
   updateResgateNaoRetirarLojaHtmlSimples20250101022,
+  addArquivoPoliticaTermos20250101023,
 ]
 
