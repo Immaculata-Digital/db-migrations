@@ -12,6 +12,8 @@ export const addResgateNaoRetirarLojaCampanha20250101011: Migration = {
       DO $$
       DECLARE
         schema_record RECORD;
+        v_column_type TEXT;
+        v_usu_cadastro_val TEXT;
       BEGIN
         -- Iterar sobre todos os schemas que têm a tabela campanhas_disparo
         FOR schema_record IN 
@@ -25,6 +27,19 @@ export const addResgateNaoRetirarLojaCampanha20250101011: Migration = {
             AND table_name = 'campanhas_disparo'
           )
         LOOP
+          -- Verificar tipo da coluna usu_cadastro
+          SELECT data_type INTO v_column_type
+          FROM information_schema.columns
+          WHERE table_schema = schema_record.schema_name
+          AND table_name = 'campanhas_disparo'
+          AND column_name = 'usu_cadastro';
+
+          IF v_column_type = 'integer' THEN
+            v_usu_cadastro_val := '1';
+          ELSE
+            v_usu_cadastro_val := 'gen_random_uuid()';
+          END IF;
+
           -- Campanha: Resgate Não Retirar Loja
           EXECUTE format('
             INSERT INTO %I.campanhas_disparo (
@@ -146,11 +161,11 @@ export const addResgateNaoRetirarLojaCampanha20250101011: Migration = {
               ''ADM-FRANQUIA'',
               false,
               NOW(),
-              1
+              %s
             WHERE NOT EXISTS (
               SELECT 1 FROM %I.campanhas_disparo WHERE chave = ''resgate_nao_retirar_loja_padrao''
             )
-          ', schema_record.schema_name, schema_record.schema_name);
+          ', schema_record.schema_name, v_usu_cadastro_val, schema_record.schema_name);
         END LOOP;
       END $$;
     `)

@@ -18,6 +18,8 @@ export const addDefaultSmtpSender20250101012: Migration = {
       DECLARE
         schema_record RECORD;
         encrypted_password TEXT := '00000000000000000000000000000000:3edfa627ac424e05412e10a441bb';
+        v_column_type TEXT;
+        v_usu_cadastro_val TEXT;
       BEGIN
         -- Iterar sobre todos os schemas (exceto system schemas)
         FOR schema_record IN 
@@ -32,6 +34,19 @@ export const addDefaultSmtpSender20250101012: Migration = {
             WHERE table_schema = schema_record.schema_name 
             AND table_name = 'remetentes_smtp'
           ) THEN
+            -- Verificar tipo da coluna usu_cadastro
+            SELECT data_type INTO v_column_type
+            FROM information_schema.columns
+            WHERE table_schema = schema_record.schema_name
+            AND table_name = 'remetentes_smtp'
+            AND column_name = 'usu_cadastro';
+
+            IF v_column_type = 'integer' THEN
+              v_usu_cadastro_val := '1';
+            ELSE
+              v_usu_cadastro_val := 'gen_random_uuid()';
+            END IF;
+
             -- Inserir remetente padrão apenas se não existir
             EXECUTE format('
               INSERT INTO %I.remetentes_smtp (
@@ -52,13 +67,13 @@ export const addDefaultSmtpSender20250101012: Migration = {
                 465,
                 true,
                 NOW(),
-                1
+                %s
               WHERE NOT EXISTS (
                 SELECT 1 
                 FROM %I.remetentes_smtp 
                 WHERE email = ''no-reply@immaculatadigital.com.br''
               )
-            ', schema_record.schema_name, encrypted_password, schema_record.schema_name);
+            ', schema_record.schema_name, encrypted_password, v_usu_cadastro_val, schema_record.schema_name);
           END IF;
         END LOOP;
       END $$;
