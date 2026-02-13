@@ -9,7 +9,7 @@ export interface DatabaseClient {
   ): Promise<QueryResult<T>>
 }
 
-class PostgreSQLClient implements DatabaseClient {
+export class PostgreSQLClient implements DatabaseClient {
   private pool: Pool
 
   constructor() {

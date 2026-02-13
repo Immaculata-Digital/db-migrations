@@ -23,35 +23,43 @@ export const addUserLojasGestoras20250101017: Migration = {
           FROM information_schema.schemata 
           WHERE schema_name NOT IN ('information_schema', 'pg_catalog', 'pg_toast', 'public')
         LOOP
-          -- Criar tabela user_lojas_gestoras no schema
-          EXECUTE format('
-            CREATE TABLE IF NOT EXISTS %I.user_lojas_gestoras (
-              user_id UUID NOT NULL,
-              id_loja INTEGER NOT NULL,
-              PRIMARY KEY (user_id, id_loja),
-              CONSTRAINT fk_%I_user_lojas_gestoras_user 
-                FOREIGN KEY (user_id) 
-                REFERENCES %I.users(id) 
-                ON DELETE CASCADE,
-              CONSTRAINT fk_%I_user_lojas_gestoras_loja 
-                FOREIGN KEY (id_loja) 
-                REFERENCES %I.lojas(id_loja) 
-                ON DELETE CASCADE
-            )
-          ', schema_record.schema_name, schema_record.schema_name, schema_record.schema_name, schema_record.schema_name, schema_record.schema_name);
+          -- Verificar se a tabela lojas existe neste schema antes de criar user_lojas_gestoras
+          IF EXISTS (
+            SELECT 1 
+            FROM information_schema.tables 
+            WHERE table_schema = schema_record.schema_name 
+            AND table_name = 'lojas'
+          ) THEN
+            -- Criar tabela user_lojas_gestoras no schema
+            EXECUTE format('
+              CREATE TABLE IF NOT EXISTS %I.user_lojas_gestoras (
+                user_id UUID NOT NULL,
+                id_loja INTEGER NOT NULL,
+                PRIMARY KEY (user_id, id_loja),
+                CONSTRAINT fk_%I_user_lojas_gestoras_user 
+                  FOREIGN KEY (user_id) 
+                  REFERENCES %I.users(id) 
+                  ON DELETE CASCADE,
+                CONSTRAINT fk_%I_user_lojas_gestoras_loja 
+                  FOREIGN KEY (id_loja) 
+                  REFERENCES %I.lojas(id_loja) 
+                  ON DELETE CASCADE
+              )
+            ', schema_record.schema_name, schema_record.schema_name, schema_record.schema_name, schema_record.schema_name, schema_record.schema_name);
 
-          -- Criar índices para user_lojas_gestoras
-          EXECUTE format('CREATE INDEX IF NOT EXISTS idx_%I_user_lojas_gestoras_user_id 
-            ON %I.user_lojas_gestoras(user_id)', 
-            schema_record.schema_name, schema_record.schema_name);
-          EXECUTE format('CREATE INDEX IF NOT EXISTS idx_%I_user_lojas_gestoras_loja_id 
-            ON %I.user_lojas_gestoras(id_loja)', 
-            schema_record.schema_name, schema_record.schema_name);
-          
-          -- Adicionar comentário
-          EXECUTE format('COMMENT ON TABLE %I.user_lojas_gestoras IS 
-            ''Relação entre usuários e lojas das quais são gestores (grupo ADM-LOJA)''', 
-            schema_record.schema_name);
+            -- Criar índices para user_lojas_gestoras
+            EXECUTE format('CREATE INDEX IF NOT EXISTS idx_%I_user_lojas_gestoras_user_id 
+              ON %I.user_lojas_gestoras(user_id)', 
+              schema_record.schema_name, schema_record.schema_name);
+            EXECUTE format('CREATE INDEX IF NOT EXISTS idx_%I_user_lojas_gestoras_loja_id 
+              ON %I.user_lojas_gestoras(id_loja)', 
+              schema_record.schema_name, schema_record.schema_name);
+            
+            -- Adicionar comentário
+            EXECUTE format('COMMENT ON TABLE %I.user_lojas_gestoras IS 
+              ''Relação entre usuários e lojas das quais são gestores (grupo ADM-LOJA)''', 
+              schema_record.schema_name);
+          END IF;
         END LOOP;
       END $$;
     `)

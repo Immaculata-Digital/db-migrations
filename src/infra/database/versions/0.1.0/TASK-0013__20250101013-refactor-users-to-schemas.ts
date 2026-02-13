@@ -70,30 +70,38 @@ export const refactorUsersToSchemas20250101013: Migration = {
           FROM information_schema.schemata 
           WHERE schema_name NOT IN ('information_schema', 'pg_catalog', 'pg_toast', 'public')
         LOOP
-          -- Criar tabela usuario_lojas no schema
-          EXECUTE format('
-            CREATE TABLE IF NOT EXISTS %I.usuario_lojas (
-              id_usuario_loja SERIAL PRIMARY KEY,
-              user_id UUID NOT NULL,
-              id_loja INTEGER NOT NULL,
-              dt_cadastro TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-              usu_cadastro INTEGER NOT NULL DEFAULT 0,
-              CONSTRAINT fk_%I_usuario_lojas_user FOREIGN KEY (user_id) REFERENCES %I.users(id) ON DELETE CASCADE,
-              CONSTRAINT fk_%I_usuario_lojas_loja FOREIGN KEY (id_loja) REFERENCES %I.lojas(id_loja) ON DELETE CASCADE,
-              CONSTRAINT uk_%I_usuario_lojas_user_loja UNIQUE (user_id, id_loja)
-            )
-          ', schema_record.schema_name, schema_record.schema_name, schema_record.schema_name, 
-             schema_record.schema_name, schema_record.schema_name, schema_record.schema_name);
+          -- Verificar se a tabela lojas existe neste schema antes de criar usuario_lojas
+          IF EXISTS (
+            SELECT 1 
+            FROM information_schema.tables 
+            WHERE table_schema = schema_record.schema_name 
+            AND table_name = 'lojas'
+          ) THEN
+            -- Criar tabela usuario_lojas no schema
+            EXECUTE format('
+              CREATE TABLE IF NOT EXISTS %I.usuario_lojas (
+                id_usuario_loja SERIAL PRIMARY KEY,
+                user_id UUID NOT NULL,
+                id_loja INTEGER NOT NULL,
+                dt_cadastro TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                usu_cadastro INTEGER NOT NULL DEFAULT 0,
+                CONSTRAINT fk_%I_usuario_lojas_user FOREIGN KEY (user_id) REFERENCES %I.users(id) ON DELETE CASCADE,
+                CONSTRAINT fk_%I_usuario_lojas_loja FOREIGN KEY (id_loja) REFERENCES %I.lojas(id_loja) ON DELETE CASCADE,
+                CONSTRAINT uk_%I_usuario_lojas_user_loja UNIQUE (user_id, id_loja)
+              )
+            ', schema_record.schema_name, schema_record.schema_name, schema_record.schema_name, 
+               schema_record.schema_name, schema_record.schema_name, schema_record.schema_name);
 
-          -- Criar índices para usuario_lojas
-          EXECUTE format('CREATE INDEX IF NOT EXISTS idx_%I_usuario_lojas_user ON %I.usuario_lojas(user_id)', 
-            schema_record.schema_name, schema_record.schema_name);
-          EXECUTE format('CREATE INDEX IF NOT EXISTS idx_%I_usuario_lojas_loja ON %I.usuario_lojas(id_loja)', 
-            schema_record.schema_name, schema_record.schema_name);
-          
-          -- Adicionar comentário
-          EXECUTE format('COMMENT ON TABLE %I.usuario_lojas IS ''Relação entre usuários e lojas do tenant''', 
-            schema_record.schema_name);
+            -- Criar índices para usuario_lojas
+            EXECUTE format('CREATE INDEX IF NOT EXISTS idx_%I_usuario_lojas_user ON %I.usuario_lojas(user_id)', 
+              schema_record.schema_name, schema_record.schema_name);
+            EXECUTE format('CREATE INDEX IF NOT EXISTS idx_%I_usuario_lojas_loja ON %I.usuario_lojas(id_loja)', 
+              schema_record.schema_name, schema_record.schema_name);
+            
+            -- Adicionar comentário
+            EXECUTE format('COMMENT ON TABLE %I.usuario_lojas IS ''Relação entre usuários e lojas do tenant''', 
+              schema_record.schema_name);
+          END IF;
         END LOOP;
       END $$;
     `)
@@ -434,7 +442,7 @@ export const refactorUsersToSchemas20250101013: Migration = {
   },
   async down({ db }) {
     // Reverter: recriar tabelas no public e remover dos schemas
-    
+
     // 1. Recriar tabela users no public
     await db.execute(`
       CREATE TABLE IF NOT EXISTS public.users (
