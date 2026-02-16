@@ -13,6 +13,10 @@ async function run() {
 
     console.log('Connected to DB');
 
+    // Check all non-system schemas
+    const allSchemasRes = await client.query("SELECT schema_name FROM information_schema.schemata WHERE schema_name NOT IN ('information_schema', 'pg_catalog', 'pg_toast')");
+    console.log("Existing non-system schemas:", allSchemasRes.rows.map(r => r.schema_name));
+
     // Check if schema 'main' exists
     const schemaRes = await client.query("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'main'");
     if (schemaRes.rowCount === 0) {
